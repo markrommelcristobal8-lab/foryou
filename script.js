@@ -6,9 +6,11 @@ const roseIntro = document.getElementById("roseIntro");
 const roseCanvas = document.getElementById("roseCanvas");
 const continueBtn = document.getElementById("continueBtn");
 const mainContent = document.getElementById("mainContent");
+
 const btn = document.getElementById("openBtn");
 const gift = document.getElementById("gift");
 const petals = document.getElementById("petals");
+
 const bgMusic = document.getElementById("bgMusic");
 
 const rctx = roseCanvas
@@ -19,28 +21,27 @@ const rctx = roseCanvas
 // =====================================
 // MUSIC
 // =====================================
-// =====================================
-// MUSIC
-// =====================================
 
-const bgMusic = new Audio("music.mp3");
-
-bgMusic.loop = true;
-bgMusic.volume = 0.7;
-bgMusic.preload = "auto";
+if (bgMusic) {
+  bgMusic.volume = 0.7;
+}
 
 function startMusic() {
+
+  if (!bgMusic) {
+    console.log("Music element not found.");
+    return;
+  }
 
   bgMusic.currentTime = 0;
 
   bgMusic.play()
     .then(() => {
-      console.log("Music playing ❤️");
+      console.log("Music started ❤️");
     })
-    .catch(error => {
+    .catch((error) => {
       console.log("Music error:", error);
     });
-
 }
 
 
@@ -89,7 +90,6 @@ function resizeRoseCanvas() {
     0,
     0
   );
-
 }
 
 
@@ -101,8 +101,7 @@ function rosePoint(t) {
 
   const k = 5;
 
-  const petal =
-    Math.sin(k * t);
+  const petal = Math.sin(k * t);
 
   const radius =
     150 *
@@ -110,16 +109,13 @@ function rosePoint(t) {
     (
       0.72 +
       0.28 *
-      Math.sin(
-        t * 2 + 0.8
-      )
+      Math.sin(t * 2 + 0.8)
     );
 
   return {
     x: Math.cos(t) * radius,
     y: Math.sin(t) * radius * 0.82
   };
-
 }
 
 
@@ -133,7 +129,6 @@ function stemPoint(t) {
     x: Math.sin(t * 4.2) * 15,
     y: t * 220
   };
-
 }
 
 
@@ -153,7 +148,9 @@ function buildRoseParticles() {
   const cy = rh * 0.43;
 
 
+  // =====================================
   // PETALS
+  // =====================================
 
   for (let i = 0; i < 900; i++) {
 
@@ -162,8 +159,7 @@ function buildRoseParticles() {
       Math.PI *
       2;
 
-    const p =
-      rosePoint(t);
+    const p = rosePoint(t);
 
     const spread =
       Math.random() *
@@ -204,8 +200,8 @@ function buildRoseParticles() {
         ) *
         420,
 
-      tx,
-      ty,
+      tx: tx,
+      ty: ty,
 
       size:
         0.7 +
@@ -220,13 +216,13 @@ function buildRoseParticles() {
       delay:
         Math.random() *
         1800
-
     });
-
   }
 
 
+  // =====================================
   // CENTER SPIRAL
+  // =====================================
 
   for (let i = 0; i < 260; i++) {
 
@@ -266,8 +262,8 @@ function buildRoseParticles() {
         ) *
         300,
 
-      tx,
-      ty,
+      tx: tx,
+      ty: ty,
 
       size:
         0.9 +
@@ -283,13 +279,13 @@ function buildRoseParticles() {
         500 +
         Math.random() *
         1400
-
     });
-
   }
 
 
+  // =====================================
   // STEM
+  // =====================================
 
   for (let i = 0; i < 260; i++) {
 
@@ -340,13 +336,13 @@ function buildRoseParticles() {
         1200 +
         Math.random() *
         1300
-
     });
-
   }
 
 
+  // =====================================
   // LEAVES
+  // =====================================
 
   for (let side of [-1, 1]) {
 
@@ -403,8 +399,8 @@ function buildRoseParticles() {
           ) *
           500,
 
-        tx,
-        ty,
+        tx: tx,
+        ty: ty,
 
         size:
           0.7 +
@@ -420,18 +416,14 @@ function buildRoseParticles() {
           1700 +
           Math.random() *
           1200
-
       });
-
     }
-
   }
-
 }
 
 
 // =====================================
-// DRAW ROSE INTRO
+// DRAW ROSE
 // =====================================
 
 function drawRoseIntro(now) {
@@ -451,7 +443,6 @@ function drawRoseIntro(now) {
     rh
   );
 
-
   const cx =
     rw / 2;
 
@@ -459,7 +450,9 @@ function drawRoseIntro(now) {
     rh * 0.54;
 
 
+  // =====================================
   // ORBIT RINGS
+  // =====================================
 
   rctx.save();
 
@@ -505,13 +498,14 @@ function drawRoseIntro(now) {
     );
 
     rctx.stroke();
-
   }
 
   rctx.restore();
 
 
+  // =====================================
   // PARTICLES
+  // =====================================
 
   for (const p of particlesRose) {
 
@@ -585,11 +579,12 @@ function drawRoseIntro(now) {
     );
 
     rctx.fill();
-
   }
 
 
+  // =====================================
   // MOVING LIGHT
+  // =====================================
 
   const t =
     (
@@ -655,7 +650,9 @@ function drawRoseIntro(now) {
   rctx.fill();
 
 
+  // =====================================
   // SHOW CONTINUE BUTTON
+  // =====================================
 
   if (
     elapsed >
@@ -674,7 +671,6 @@ function drawRoseIntro(now) {
       .add(
         "show-intro-btn"
       );
-
   }
 
 
@@ -690,17 +686,16 @@ function drawRoseIntro(now) {
     requestAnimationFrame(
       drawRoseIntro
     );
-
   }
-
 }
 
 
 // =====================================
-// START INTRO
+// START ROSE
 // =====================================
 
 resizeRoseCanvas();
+
 buildRoseParticles();
 
 requestAnimationFrame(
@@ -709,7 +704,7 @@ requestAnimationFrame(
 
 
 // =====================================
-// RESIZE
+// WINDOW RESIZE
 // =====================================
 
 window.addEventListener(
@@ -722,7 +717,6 @@ window.addEventListener(
 
     roseStart =
       performance.now();
-
   }
 );
 
@@ -731,29 +725,23 @@ window.addEventListener(
 // CONTINUE BUTTON
 // =====================================
 
-btn.addEventListener("click", () => {
+if (continueBtn) {
 
-  // MUSIC STARTS HERE ONLY
-  startMusic();
+  continueBtn.addEventListener(
+    "click",
+    () => {
 
-  // SHOW PHOTOS AND LETTERS
-  gift.classList.remove("hidden");
+      // IMPORTANT:
+      // NO MUSIC HERE
 
-  btn.textContent = "Surprise Opened ❤️";
-  btn.disabled = true;
+      if (roseIntro) {
 
-  rain();
-
-  setTimeout(() => {
-
-    gift.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-
-  }, 500);
-
-});
+        roseIntro
+          .classList
+          .add(
+            "intro-out"
+          );
+      }
 
 
       if (mainContent) {
@@ -769,7 +757,6 @@ btn.addEventListener("click", () => {
           .add(
             "main-visible"
           );
-
       }
 
 
@@ -777,6 +764,7 @@ btn.addEventListener("click", () => {
         () => {
 
           if (roseIntro) {
+
             roseIntro.style.display =
               "none";
           }
@@ -784,10 +772,8 @@ btn.addEventListener("click", () => {
         },
         1100
       );
-
     }
   );
-
 }
 
 
@@ -854,13 +840,13 @@ function rain() {
 
     setTimeout(
       () => {
+
         p.remove();
+
       },
       10000
     );
-
   }
-
 }
 
 
@@ -874,11 +860,17 @@ if (btn) {
     "click",
     () => {
 
+      // =====================================
       // MUSIC STARTS ONLY HERE
+      // =====================================
+
       startMusic();
 
 
-      // SHOW PHOTOS
+      // =====================================
+      // SHOW PHOTOS + LETTERS
+      // =====================================
+
       if (gift) {
 
         gift
@@ -886,7 +878,6 @@ if (btn) {
           .remove(
             "hidden"
           );
-
       }
 
 
@@ -897,8 +888,16 @@ if (btn) {
         true;
 
 
+      // =====================================
+      // FALLING FLOWERS
+      // =====================================
+
       rain();
 
+
+      // =====================================
+      // SCROLL TO PHOTOS
+      // =====================================
 
       setTimeout(
         () => {
@@ -909,14 +908,11 @@ if (btn) {
               behavior: "smooth",
               block: "start"
             });
-
           }
 
         },
         500
       );
-
     }
   );
-
 }
