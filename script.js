@@ -29,16 +29,16 @@ const petals =
 const bgMusic =
   document.getElementById("bgMusic");
 
-
-
-// =====================================
-// MUSIC
-// =====================================
-
-bgMusic.volume = 0.7;
-
+if (bgMusic) {
+  bgMusic.volume = 0.7;
+}
 
 function startMusic() {
+
+  if (!bgMusic) {
+    console.log("Music element not found.");
+    return;
+  }
 
   if (!bgMusic.paused) {
     return;
@@ -47,17 +47,10 @@ function startMusic() {
   bgMusic.currentTime = 0;
 
   bgMusic.play().catch(error => {
-
-    console.log(
-      "Music could not start:",
-      error
-    );
-
+    console.log("Music could not start:", error);
   });
 
 }
-
-
 
 // =====================================
 // ROSE PARTICLES
@@ -124,11 +117,10 @@ function resizeRoseCanvas() {
 resizeRoseCanvas();
 
 
-window.addEventListener(
-  "resize",
-  resizeRoseCanvas
-);
-
+window.addEventListener("resize", () => {
+  resizeRoseCanvas();
+  buildRoseParticles();
+});
 
 
 // =====================================
