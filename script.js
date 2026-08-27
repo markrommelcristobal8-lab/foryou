@@ -1,6 +1,6 @@
-// ======================================
-// GLOWING PARTICLE ROSE INTRO
-// ======================================
+// ===============================
+// ELEMENTS
+// ===============================
 
 const roseIntro =
   document.getElementById("roseIntro");
@@ -17,16 +17,92 @@ const continueBtn =
 const mainContent =
   document.getElementById("mainContent");
 
+const btn =
+  document.getElementById("openBtn");
+
+const gift =
+  document.getElementById("gift");
+
+const petals =
+  document.getElementById("petals");
+
+const bgMusic =
+  document.getElementById("bgMusic");
+
+
+// ===============================
+// MUSIC
+// ===============================
+
+bgMusic.volume = 0.65;
+
+
+function startMusic() {
+
+  if (bgMusic.paused) {
+
+    bgMusic
+      .play()
+      .catch(() => {
+
+        console.log(
+          "Browser blocked autoplay."
+        );
+
+      });
+
+  }
+
+}
+
+
+// Try playing immediately
+
+window.addEventListener(
+  "load",
+  () => {
+
+    startMusic();
+
+  }
+);
+
+
+// First click starts music
+// if autoplay was blocked.
+
+document.addEventListener(
+  "click",
+  startMusic,
+  {
+    once: true
+  }
+);
+
+
+document.addEventListener(
+  "touchstart",
+  startMusic,
+  {
+    once: true
+  }
+);
+
+
+// ===============================
+// ROSE PARTICLE INTRO
+// ===============================
 
 let rw = 0;
+
 let rh = 0;
+
 let rdpr = 1;
 
 let particlesRose = [];
 
 let roseStart =
   performance.now();
-
 
 
 function resizeRoseCanvas() {
@@ -66,6 +142,7 @@ function resizeRoseCanvas() {
     0,
     0
   );
+
 }
 
 
@@ -78,7 +155,6 @@ window.addEventListener(
 );
 
 
-
 function rosePoint(t) {
 
   const k = 5;
@@ -88,53 +164,59 @@ function rosePoint(t) {
 
 
   const radius =
+
     150 *
+
     petal *
+
     (
       0.72 +
+
       0.28 *
+
       Math.sin(
-        t * 2.0 + 0.8
+        t * 2 + 0.8
       )
     );
 
 
-  const x =
-    Math.cos(t) * radius;
-
-
-  const y =
-    Math.sin(t) *
-    radius *
-    0.82;
-
-
   return {
-    x,
-    y
-  };
-}
 
+    x:
+
+      Math.cos(t) *
+      radius,
+
+
+    y:
+
+      Math.sin(t) *
+      radius *
+      0.82
+
+  };
+
+}
 
 
 function stemPoint(t) {
 
-  const y =
-    t * 220;
-
-
-  const x =
-    Math.sin(
-      t * 4.2
-    ) * 15;
-
-
   return {
-    x,
-    y
-  };
-}
 
+    x:
+
+      Math.sin(
+        t * 4.2
+      ) * 15,
+
+
+    y:
+
+      t * 220
+
+  };
+
+}
 
 
 function buildRoseParticles() {
@@ -145,13 +227,14 @@ function buildRoseParticles() {
   const cx =
     rw / 2;
 
-
   const cy =
     rh * 0.43;
 
 
 
+  // ===============================
   // PETALS
+  // ===============================
 
   for (
     let i = 0;
@@ -180,15 +263,21 @@ function buildRoseParticles() {
 
 
     const tx =
+
       cx +
+
       p.x +
+
       Math.cos(ang) *
       spread;
 
 
     const ty =
+
       cy +
+
       p.y +
+
       Math.sin(ang) *
       spread;
 
@@ -196,7 +285,9 @@ function buildRoseParticles() {
     particlesRose.push({
 
       x:
+
         cx +
+
         (
           Math.random() -
           0.5
@@ -204,7 +295,9 @@ function buildRoseParticles() {
 
 
       y:
+
         cy +
+
         (
           Math.random() -
           0.5
@@ -217,27 +310,35 @@ function buildRoseParticles() {
 
 
       size:
+
         0.7 +
+
         Math.random() *
         2.2,
 
 
       a:
+
         0.18 +
+
         Math.random() *
         0.82,
 
 
       delay:
+
         Math.random() *
         1800
 
     });
+
   }
 
 
 
+  // ===============================
   // CENTER SPIRAL
+  // ===============================
 
   for (
     let i = 0;
@@ -255,13 +356,17 @@ function buildRoseParticles() {
 
 
     const tx =
+
       cx +
+
       Math.cos(a) *
       rad;
 
 
     const ty =
+
       cy +
+
       Math.sin(a) *
       rad *
       0.72;
@@ -270,7 +375,9 @@ function buildRoseParticles() {
     particlesRose.push({
 
       x:
+
         cx +
+
         (
           Math.random() -
           0.5
@@ -278,7 +385,9 @@ function buildRoseParticles() {
 
 
       y:
+
         cy +
+
         (
           Math.random() -
           0.5
@@ -291,28 +400,37 @@ function buildRoseParticles() {
 
 
       size:
+
         0.9 +
+
         Math.random() *
         2.1,
 
 
       a:
+
         0.3 +
+
         Math.random() *
         0.7,
 
 
       delay:
+
         500 +
+
         Math.random() *
         1400
 
     });
+
   }
 
 
 
+  // ===============================
   // STEM
+  // ===============================
 
   for (
     let i = 0;
@@ -331,7 +449,9 @@ function buildRoseParticles() {
     particlesRose.push({
 
       x:
+
         cx +
+
         (
           Math.random() -
           0.5
@@ -339,7 +459,9 @@ function buildRoseParticles() {
 
 
       y:
+
         cy +
+
         (
           Math.random() -
           0.5
@@ -347,42 +469,55 @@ function buildRoseParticles() {
 
 
       tx:
+
         cx +
         sp.x,
 
 
       ty:
+
         cy +
         100 +
         sp.y,
 
 
       size:
+
         0.8 +
+
         Math.random() *
         1.5,
 
 
       a:
+
         0.25 +
+
         Math.random() *
         0.6,
 
 
       delay:
+
         1200 +
+
         Math.random() *
         1300
 
     });
+
   }
 
 
 
+  // ===============================
   // LEAVES
+  // ===============================
 
   for (
-    let side of [-1, 1]
+    let side
+    of
+    [-1, 1]
   ) {
 
     for (
@@ -396,6 +531,7 @@ function buildRoseParticles() {
 
 
       const ang =
+
         (
           Math.random() -
           0.5
@@ -407,23 +543,32 @@ function buildRoseParticles() {
 
 
       const baseY =
+
         cy +
+
         225 +
+
         side * 10;
 
 
       const tx =
+
         cx +
+
         side *
+
         (
           25 +
+
           len *
           Math.cos(ang)
         );
 
 
       const ty =
+
         baseY +
+
         len *
         Math.sin(ang) *
         0.55;
@@ -432,7 +577,9 @@ function buildRoseParticles() {
       particlesRose.push({
 
         x:
+
           cx +
+
           (
             Math.random() -
             0.5
@@ -440,7 +587,9 @@ function buildRoseParticles() {
 
 
         y:
+
           cy +
+
           (
             Math.random() -
             0.5
@@ -453,32 +602,43 @@ function buildRoseParticles() {
 
 
         size:
+
           0.7 +
+
           Math.random() *
           1.4,
 
 
         a:
+
           0.18 +
+
           Math.random() *
           0.55,
 
 
         delay:
+
           1700 +
+
           Math.random() *
           1200
 
       });
-    }
-  }
-}
 
+    }
+
+  }
+
+}
 
 
 buildRoseParticles();
 
 
+// ===============================
+// DRAW ROSE
+// ===============================
 
 function drawRoseIntro(now) {
 
@@ -495,9 +655,6 @@ function drawRoseIntro(now) {
   );
 
 
-
-  // ORBIT RINGS
-
   const cx =
     rw / 2;
 
@@ -505,6 +662,11 @@ function drawRoseIntro(now) {
   const cy =
     rh * 0.54;
 
+
+
+  // ===============================
+  // ORBIT RINGS
+  // ===============================
 
   rctx.save();
 
@@ -531,11 +693,16 @@ function drawRoseIntro(now) {
 
 
     rctx.strokeStyle =
+
       `rgba(
         255,
         45,
         95,
-        ${0.08 + i * 0.035}
+        ${
+          0.08 +
+          i *
+          0.035
+        }
       )`;
 
 
@@ -552,17 +719,28 @@ function drawRoseIntro(now) {
 
 
     rctx.ellipse(
+
       0,
+
       0,
-      155 + i * 20,
-      155 + i * 20,
+
+      155 +
+      i * 20,
+
+      155 +
+      i * 20,
+
       0,
+
       0,
+
       Math.PI * 2
+
     );
 
 
     rctx.stroke();
+
   }
 
 
@@ -570,38 +748,58 @@ function drawRoseIntro(now) {
 
 
 
+  // ===============================
   // PARTICLES
+  // ===============================
 
   for (
-    const p of particlesRose
+    const p
+    of
+    particlesRose
   ) {
 
     const local =
+
       Math.max(
+
         0,
+
         elapsed -
         p.delay
+
       );
 
 
     const progress =
+
       Math.min(
+
         1,
-        local / 1900
+
+        local /
+        1900
+
       );
 
 
     const ease =
+
       1 -
+
       Math.pow(
+
         1 -
         progress,
+
         3
+
       );
 
 
     const x =
+
       p.x +
+
       (
         p.tx -
         p.x
@@ -610,7 +808,9 @@ function drawRoseIntro(now) {
 
 
     const y =
+
       p.y +
+
       (
         p.ty -
         p.y
@@ -622,6 +822,7 @@ function drawRoseIntro(now) {
 
 
     rctx.fillStyle =
+
       `rgba(
         255,
         38,
@@ -646,26 +847,39 @@ function drawRoseIntro(now) {
 
 
     rctx.arc(
+
       x,
+
       y,
+
       p.size,
+
       0,
+
       Math.PI * 2
+
     );
 
 
     rctx.fill();
+
   }
 
 
 
+  // ===============================
   // MOVING LIGHT
+  // ===============================
 
   const t =
+
     (
       elapsed /
       1250
-    ) %
+    )
+
+    %
+
     (
       Math.PI *
       2
@@ -677,42 +891,64 @@ function drawRoseIntro(now) {
 
 
   const lx =
+
     rw / 2 +
+
     rp.x;
 
 
   const ly =
+
     rh *
     0.43 +
+
     rp.y;
 
 
   const grad =
-    rctx.createRadialGradient(
-      lx,
-      ly,
-      0,
-      lx,
-      ly,
-      28
-    );
+
+    rctx
+      .createRadialGradient(
+
+        lx,
+
+        ly,
+
+        0,
+
+        lx,
+
+        ly,
+
+        28
+
+      );
 
 
   grad.addColorStop(
+
     0,
+
     "rgba(255,255,255,.95)"
+
   );
 
 
   grad.addColorStop(
+
     0.2,
+
     "rgba(255,90,130,.8)"
+
   );
 
 
   grad.addColorStop(
+
     1,
+
     "rgba(255,20,70,0)"
+
   );
 
 
@@ -724,11 +960,17 @@ function drawRoseIntro(now) {
 
 
   rctx.arc(
+
     lx,
+
     ly,
+
     28,
+
     0,
+
     Math.PI * 2
+
   );
 
 
@@ -736,7 +978,9 @@ function drawRoseIntro(now) {
 
 
 
-  // SHOW CONTINUE BUTTON
+  // ===============================
+  // SHOW CONTINUE
+  // ===============================
 
   if (
     elapsed >
@@ -755,16 +999,19 @@ function drawRoseIntro(now) {
       .add(
         "show-intro-btn"
       );
+
   }
 
 
 
   if (
+
     !roseIntro
       .classList
       .contains(
         "intro-out"
       )
+
   ) {
 
     requestAnimationFrame(
@@ -772,8 +1019,8 @@ function drawRoseIntro(now) {
     );
 
   }
-}
 
+}
 
 
 requestAnimationFrame(
@@ -781,149 +1028,64 @@ requestAnimationFrame(
 );
 
 
+// ===============================
+// CONTINUE BUTTON
+// ===============================
 
-// ======================================
-// MUSIC
-// ======================================
+continueBtn
+  .addEventListener(
 
-const bgMusic =
-  document.getElementById(
-    "bgMusic"
-  );
+    "click",
 
+    () => {
 
-bgMusic.volume =
-  0.65;
-
+      startMusic();
 
 
-function startMusic() {
-
-  if (
-    bgMusic.paused
-  ) {
-
-    bgMusic
-      .play()
-      .catch(() => {
-
-        console.log(
-          "Autoplay blocked."
+      roseIntro
+        .classList
+        .add(
+          "intro-out"
         );
 
-      });
 
-  }
-}
-
-
-
-// TRY AUTOPLAY
-
-window.addEventListener(
-  "load",
-  () => {
-
-    startMusic();
-
-  }
-);
+      mainContent
+        .classList
+        .remove(
+          "main-hidden"
+        );
 
 
-
-// FIRST CLICK
-
-document.addEventListener(
-  "click",
-  startMusic,
-  {
-    once: true
-  }
-);
+      mainContent
+        .classList
+        .add(
+          "main-visible"
+        );
 
 
+      setTimeout(
 
-// FIRST TOUCH
+        () => {
 
-document.addEventListener(
-  "touchstart",
-  startMusic,
-  {
-    once: true
-  }
-);
+          roseIntro
+            .style
+            .display =
+            "none";
 
+        },
 
+        1100
 
-// ======================================
-// CONTINUE BUTTON
-// ======================================
-
-continueBtn.addEventListener(
-  "click",
-  () => {
-
-    startMusic();
-
-
-    roseIntro
-      .classList
-      .add(
-        "intro-out"
       );
 
+    }
 
-    mainContent
-      .classList
-      .remove(
-        "main-hidden"
-      );
-
-
-    mainContent
-      .classList
-      .add(
-        "main-visible"
-      );
-
-
-    setTimeout(
-      () => {
-
-        roseIntro.style.display =
-          "none";
-
-      },
-      1100
-    );
-
-  }
-);
-
-
-
-// ======================================
-// SURPRISE
-// ======================================
-
-const btn =
-  document.getElementById(
-    "openBtn"
   );
 
 
-const gift =
-  document.getElementById(
-    "gift"
-  );
-
-
-const petals =
-  document.getElementById(
-    "petals"
-  );
-
-
+// ===============================
+// FALLING PETALS
+// ===============================
 
 function rain() {
 
@@ -934,9 +1096,11 @@ function rain() {
   ) {
 
     const p =
-      document.createElement(
-        "span"
-      );
+
+      document
+        .createElement(
+          "span"
+        );
 
 
     p.className =
@@ -944,43 +1108,61 @@ function rain() {
 
 
     p.textContent =
+
       Math.random() >
       0.45
+
       ? "🌹"
+
       : "🌸";
 
 
     p.style.left =
+
       Math.random() *
       100 +
+
       "vw";
 
 
     p.style.fontSize =
+
       14 +
+
       Math.random() *
       19 +
+
       "px";
 
 
     p.style.setProperty(
+
       "--x",
+
       -130 +
+
       Math.random() *
       260 +
+
       "px"
+
     );
 
 
     p.style.animationDuration =
+
       4 +
+
       Math.random() *
       5 +
+
       "s";
 
 
     p.style.animationDelay =
+
       Math.random() +
+
       "s";
 
 
@@ -991,54 +1173,76 @@ function rain() {
 
 
     setTimeout(
+
       () => {
 
         p.remove();
 
       },
+
       10000
+
     );
+
   }
+
 }
 
 
+// ===============================
+// OPEN SURPRISE BUTTON
+// ===============================
 
-btn.addEventListener(
-  "click",
-  () => {
+btn
+  .addEventListener(
 
-    startMusic();
+    "click",
+
+    () => {
+
+      startMusic();
 
 
-    gift
-      .classList
-      .remove(
-        "hidden"
+      // SHOW PHOTOS AND LETTERS
+      gift
+        .classList
+        .remove(
+          "hidden"
+        );
+
+
+      btn.textContent =
+        "Surprise Opened ❤️";
+
+
+      btn.disabled =
+        true;
+
+
+      rain();
+
+
+      setTimeout(
+
+        () => {
+
+          gift
+            .scrollIntoView({
+
+              behavior:
+                "smooth",
+
+              block:
+                "start"
+
+            });
+
+        },
+
+        500
+
       );
 
+    }
 
-    btn.textContent =
-      "Surprise Opened ❤️";
-
-
-    btn.disabled =
-      true;
-
-
-    rain();
-
-
-    setTimeout(
-      () => {
-
-        gift.scrollIntoView({
-          behavior:
-            "smooth"
-        });
-
-      },
-      300
-    );
-
-  }
-);
+  );
