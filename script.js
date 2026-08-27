@@ -19,28 +19,27 @@ const rctx = roseCanvas
 // =====================================
 // MUSIC
 // =====================================
+// =====================================
+// MUSIC
+// =====================================
 
-if (bgMusic) {
-  bgMusic.volume = 0.7;
-}
+const bgMusic = new Audio("music.mp3");
 
+bgMusic.loop = true;
+bgMusic.volume = 0.7;
+bgMusic.preload = "auto";
 
 function startMusic() {
 
-  if (!bgMusic) {
-    console.log("Music element not found.");
-    return;
-  }
-
-  if (!bgMusic.paused) {
-    return;
-  }
-
   bgMusic.currentTime = 0;
 
-  bgMusic.play().catch(error => {
-    console.log("Music could not start:", error);
-  });
+  bgMusic.play()
+    .then(() => {
+      console.log("Music playing ❤️");
+    })
+    .catch(error => {
+      console.log("Music error:", error);
+    });
 
 }
 
@@ -732,23 +731,29 @@ window.addEventListener(
 // CONTINUE BUTTON
 // =====================================
 
-if (continueBtn) {
+btn.addEventListener("click", () => {
 
-  continueBtn.addEventListener(
-    "click",
-    () => {
+  // MUSIC STARTS HERE ONLY
+  startMusic();
 
-      // NO MUSIC HERE
+  // SHOW PHOTOS AND LETTERS
+  gift.classList.remove("hidden");
 
-      if (roseIntro) {
+  btn.textContent = "Surprise Opened ❤️";
+  btn.disabled = true;
 
-        roseIntro
-          .classList
-          .add(
-            "intro-out"
-          );
+  rain();
 
-      }
+  setTimeout(() => {
+
+    gift.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+  }, 500);
+
+});
 
 
       if (mainContent) {
