@@ -26,8 +26,8 @@ const gift =
 const petals =
   document.getElementById("petals");
 
-const player =
-  document.getElementById("player");
+const bgMusic =
+  document.getElementById("bgMusic");
 
 
 
@@ -35,117 +35,27 @@ const player =
 // MUSIC
 // =====================================
 
-const VIDEO_ID = "dbVR391HzT8";
-
-let musicStarted = false;
+bgMusic.volume = 0.7;
 
 
-function createMusicPlayer() {
+function startMusic() {
 
-  player.innerHTML = "";
-
-  const iframe =
-    document.createElement("iframe");
-
-  iframe.width = "1";
-  iframe.height = "1";
-
-  iframe.src =
-    `https://www.youtube.com/embed/${VIDEO_ID}` +
-    `?autoplay=1` +
-    `&loop=1` +
-    `&playlist=${VIDEO_ID}` +
-    `&controls=0` +
-    `&playsinline=1` +
-    `&rel=0` +
-    `&enablejsapi=1` +
-    `&origin=${encodeURIComponent(window.location.origin)}`;
-
-  iframe.title =
-    "Background Music";
-
-  iframe.allow =
-    "autoplay; encrypted-media";
-
-  iframe.frameBorder =
-    "0";
-
-  player.appendChild(iframe);
-
-  musicStarted = true;
-}
-
-
-function startMusic(forceRestart = false) {
-
-  /*
-    Kapag na-block ng browser ang unang autoplay,
-    ire-recreate natin ang YouTube player kapag
-    totoong nag-tap ang user.
-  */
-
-  if (forceRestart) {
-
-    musicStarted = false;
-
-    player.innerHTML = "";
-
-  }
-
-
-  if (musicStarted) {
-
+  if (!bgMusic.paused) {
     return;
-
   }
 
+  bgMusic.currentTime = 0;
 
-  createMusicPlayer();
+  bgMusic.play().catch(error => {
+
+    console.log(
+      "Music could not start:",
+      error
+    );
+
+  });
+
 }
-
-
-
-// TRY MUSIC WHEN PAGE OPENS
-
-window.addEventListener(
-  "load",
-  () => {
-
-    startMusic(false);
-
-  }
-);
-
-
-
-// IF AUTOPLAY IS BLOCKED,
-// FIRST REAL TAP WILL RETRY MUSIC
-
-document.addEventListener(
-  "pointerdown",
-  () => {
-
-    startMusic(true);
-
-  },
-  {
-    once: true
-  }
-);
-
-
-document.addEventListener(
-  "touchstart",
-  () => {
-
-    startMusic(true);
-
-  },
-  {
-    once: true,
-    passive: true
-  }
-);
 
 
 
@@ -270,7 +180,7 @@ function rosePoint(t) {
 
 
 // =====================================
-// STEM
+// STEM SHAPE
 // =====================================
 
 function stemPoint(t) {
@@ -281,12 +191,14 @@ function stemPoint(t) {
 
       Math.sin(
         t * 4.2
-      ) * 15,
+      ) *
+      15,
 
 
     y:
 
-      t * 220
+      t *
+      220
 
   };
 
@@ -435,7 +347,8 @@ function buildRoseParticles() {
   ) {
 
     const a =
-      i * 0.18;
+      i *
+      0.18;
 
 
     const rad =
@@ -525,7 +438,7 @@ function buildRoseParticles() {
 
 
   // =====================================
-  // STEM PARTICLES
+  // STEM
   // =====================================
 
   for (
@@ -613,7 +526,9 @@ function buildRoseParticles() {
   // =====================================
 
   for (
-    let side of [-1, 1]
+    let side
+    of
+    [-1, 1]
   ) {
 
     for (
@@ -742,7 +657,7 @@ buildRoseParticles();
 
 
 // =====================================
-// DRAW ROSE
+// DRAW ROSE INTRO
 // =====================================
 
 function drawRoseIntro(now) {
@@ -771,7 +686,7 @@ function drawRoseIntro(now) {
 
 
   // =====================================
-  // GLOWING ORBIT RINGS
+  // ORBIT RINGS
   // =====================================
 
   rctx.save();
@@ -1151,13 +1066,7 @@ continueBtn
 
     () => {
 
-      /*
-        Important:
-        retry music during a real click.
-      */
-
-      startMusic(true);
-
+      // NO MUSIC HERE
 
       roseIntro
         .classList
@@ -1202,7 +1111,7 @@ continueBtn
 
 
 // =====================================
-// FALLING ROSES / FLOWERS
+// FALLING PETALS
 // =====================================
 
 function rain() {
@@ -1319,16 +1228,16 @@ btn
 
     () => {
 
-      /*
-        Another music retry.
-        This helps if the first attempt
-        was blocked.
-      */
+      // ===============================
+      // MUSIC STARTS ONLY HERE
+      // ===============================
 
-      startMusic(true);
+      startMusic();
 
 
-      // SHOW PHOTOS ONLY NOW
+      // ===============================
+      // SHOW PHOTOS AND LETTERS
+      // ===============================
 
       gift
         .classList
@@ -1345,8 +1254,12 @@ btn
         true;
 
 
+      // FALLING ROSES
+
       rain();
 
+
+      // SCROLL TO FIRST PHOTO
 
       setTimeout(
 
