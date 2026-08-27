@@ -1,138 +1,219 @@
 * {
-  box-sizing: border-box;
+
+  box-sizing:
+    border-box;
+
 }
+
 
 html {
-  scroll-behavior: smooth;
+
+  scroll-behavior:
+    smooth;
+
 }
 
+
 body {
+
   margin: 0;
-  background: #140005;
-  color: white;
+
+  min-height:
+    100vh;
+
+  background:
+    #140005;
+
+  color:
+    white;
 
   font-family:
     "Montserrat",
     sans-serif;
 
-  overflow-x: hidden;
+  overflow-x:
+    hidden;
+
 }
 
 
-/* ========================= */
+
+/* =============================== */
 /* BACKGROUND */
-/* ========================= */
+/* =============================== */
 
 .background {
 
-  position: fixed;
+  position:
+    fixed;
 
-  inset: 0;
+  inset:
+    0;
 
   background:
+
     url("roses-bg.png")
     center
     center /
     cover
     no-repeat;
 
-  z-index: -3;
+  transform:
+    scale(1.03);
 
-  transform: scale(1.02);
+  z-index:
+    -3;
+
 }
 
 
 .overlay {
 
-  position: fixed;
+  position:
+    fixed;
 
-  inset: 0;
+  inset:
+    0;
 
   background:
 
     radial-gradient(
       circle at center,
-      rgba(40,0,10,.25),
-      rgba(10,0,3,.82)
+      rgba(45,0,12,.2),
+      rgba(8,0,2,.82)
     ),
 
     linear-gradient(
-      rgba(20,0,5,.35),
-      rgba(10,0,2,.9)
+      rgba(25,0,7,.35),
+      rgba(10,0,3,.9)
     );
 
-  z-index: -2;
+  z-index:
+    -2;
+
 }
 
 
-/* ========================= */
+
+/* =============================== */
+/* YOUTUBE PLAYER */
+/* =============================== */
+
+#player {
+
+  position:
+    fixed;
+
+  left:
+    -20px;
+
+  bottom:
+    -20px;
+
+  width:
+    1px;
+
+  height:
+    1px;
+
+  opacity:
+    0.01;
+
+  pointer-events:
+    none;
+
+  overflow:
+    hidden;
+
+}
+
+
+
+/* =============================== */
 /* MAIN */
-/* ========================= */
+/* =============================== */
 
 main {
 
   width:
+
     min(
       1100px,
       calc(100% - 28px)
     );
 
-  margin: auto;
+  margin:
+    auto;
 
   padding:
+
     55px
     0
     90px;
+
 }
 
 
 .main-hidden {
 
-  opacity: 0;
+  opacity:
+    0;
 
-  visibility: hidden;
+  visibility:
+    hidden;
 
-  pointer-events: none;
+  pointer-events:
+    none;
+
 }
 
 
 .main-visible {
 
-  opacity: 1;
+  opacity:
+    1;
 
-  visibility: visible;
+  visibility:
+    visible;
 
-  pointer-events: auto;
+  pointer-events:
+    auto;
 
   transition:
+
     opacity
     1s
     ease;
+
 }
 
 
-/* ========================= */
+
+/* =============================== */
 /* GLASS */
-/* ========================= */
+ /* =============================== */
 
 .glass {
 
   background:
+
     linear-gradient(
       135deg,
-      rgba(55,0,14,.78),
-      rgba(28,0,7,.66)
+      rgba(60,0,15,.79),
+      rgba(28,0,8,.7)
     );
 
   border:
 
     1px solid
-    rgba(255,255,255,.18);
+    rgba(255,255,255,.17);
 
   backdrop-filter:
+
     blur(16px);
 
   -webkit-backdrop-filter:
+
     blur(16px);
 
   box-shadow:
@@ -141,25 +222,25 @@ main {
     25px
     70px
     rgba(0,0,0,.5);
+
 }
 
 
-/* ========================= */
-/* INTRO CARD */
-/* ========================= */
+
+/* =============================== */
+/* OPEN CARD */
+/* =============================== */
 
 .intro {
 
-  max-width: 780px;
+  max-width:
+    780px;
 
   margin:
+
     5vh
     auto
     45px;
-
-  text-align: center;
-
-  border-radius: 34px;
 
   padding:
 
@@ -170,24 +251,37 @@ main {
     )
 
     30px;
+
+  text-align:
+    center;
+
+  border-radius:
+    34px;
+
 }
 
 
 .mini {
 
-  font-size: .74rem;
+  color:
+    #f3c7ce;
 
-  letter-spacing: .28em;
+  letter-spacing:
+    .28em;
 
-  color: #f5c7ce;
+  font-size:
+    .74rem;
 
-  margin-bottom: 18px;
+  margin-bottom:
+    18px;
+
 }
 
 
 .intro h1 {
 
   font-family:
+
     "Cormorant Garamond",
     serif;
 
@@ -199,34 +293,42 @@ main {
       6rem
     );
 
-  line-height: .95;
+  line-height:
+    .95;
 
   margin:
+
     15px
     0
     25px;
+
 }
 
 
 .intro p {
 
-  line-height: 1.8;
-
-  color: #ffe8eb;
-
-  max-width: 620px;
+  max-width:
+    620px;
 
   margin:
 
     0
     auto
     25px;
+
+  color:
+    #ffe8eb;
+
+  line-height:
+    1.8;
+
 }
 
 
 .intro button {
 
-  display: block;
+  display:
+    block;
 
   margin:
 
@@ -234,7 +336,8 @@ main {
     auto
     14px;
 
-  border: none;
+  border:
+    none;
 
   border-radius:
     999px;
@@ -242,84 +345,100 @@ main {
   padding:
 
     18px
-    32px;
+    34px;
+
+  color:
+    white;
+
+  font-size:
+    1rem;
+
+  font-weight:
+    700;
+
+  cursor:
+    pointer;
 
   background:
 
     linear-gradient(
       135deg,
-      #d61b45,
-      #840927
+      #d71b46,
+      #820827
     );
-
-  color: white;
-
-  font-size: 1rem;
-
-  font-weight: 700;
-
-  cursor: pointer;
 
   box-shadow:
 
     0
     15px
     40px
-    rgba(190,10,50,.45);
+    rgba(190,10,50,.48);
 
   transition:
+
     transform
     .25s
     ease;
+
 }
 
 
 .intro button:hover {
 
   transform:
+
     translateY(-2px)
-    scale(1.02);
+    scale(1.03);
+
 }
 
 
 .intro small {
 
-  opacity: .75;
+  opacity:
+    .75;
+
 }
 
 
-/* ========================= */
-/* MOST IMPORTANT PART */
-/* HIDE GIFT FIRST */
-/* ========================= */
+
+/* =============================== */
+/* IMPORTANT: HIDE PHOTOS FIRST */
+/* =============================== */
 
 #gift.hidden {
 
   display:
     none
     !important;
+
 }
 
 
 #gift:not(.hidden) {
 
-  display: grid;
+  display:
+    grid;
+
 }
 
 
-/* ========================= */
+
+/* =============================== */
 /* GIFT */
-/* ========================= */
+/* =============================== */
 
 .gift {
 
-  gap: 34px;
+  gap:
+    34px;
 
   animation:
 
     showGift
     .8s
     ease;
+
 }
 
 
@@ -327,30 +446,36 @@ main {
 
   from {
 
-    opacity: 0;
+    opacity:
+      0;
 
     transform:
       translateY(30px);
+
   }
 
   to {
 
-    opacity: 1;
+    opacity:
+      1;
 
     transform:
       translateY(0);
+
   }
 
 }
 
 
-/* ========================= */
-/* MEMORY CARDS */
-/* ========================= */
+
+/* =============================== */
+/* MEMORY CARD */
+/* =============================== */
 
 .memory-card {
 
-  display: grid;
+  display:
+    grid;
 
   grid-template-columns:
 
@@ -361,7 +486,8 @@ main {
 
     1.15fr;
 
-  overflow: hidden;
+  overflow:
+    hidden;
 
   border-radius:
     30px;
@@ -377,7 +503,8 @@ main {
     0
     28px
     70px
-    rgba(0,0,0,.48);
+    rgba(0,0,0,.5);
+
 }
 
 
@@ -391,49 +518,73 @@ main {
       260px,
       .85fr
     );
+
 }
 
 
 .memory-card:nth-child(even)
 .photo-wrap {
 
-  order: 2;
+  order:
+    2;
+
 }
 
 
-/* ========================= */
-/* PHOTOS */
-/* ========================= */
+
+/* =============================== */
+/* PHOTO */
+/* =============================== */
 
 .photo-wrap {
 
   min-height:
     540px;
 
-  background:
-    #210008;
+  overflow:
+    hidden;
 
-  overflow: hidden;
+  background:
+    #220008;
+
 }
 
 
 .photo-wrap img {
 
-  width: 100%;
+  width:
+    100%;
 
-  height: 100%;
+  height:
+    100%;
 
-  display: block;
+  display:
+    block;
 
-  object-fit: cover;
+  object-fit:
+    cover;
+
 }
 
 
-/* ========================= */
+
+/* =============================== */
 /* LETTER */
-/* ========================= */
+/* =============================== */
 
 .letter {
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  justify-content:
+    center;
+
+  text-align:
+    center;
 
   padding:
 
@@ -443,15 +594,6 @@ main {
       70px
     );
 
-  display: flex;
-
-  flex-direction:
-    column;
-
-  justify-content:
-    center;
-
-  text-align: center;
 }
 
 
@@ -459,6 +601,7 @@ main {
 
   font-size:
     2.4rem;
+
 }
 
 
@@ -478,13 +621,14 @@ main {
     );
 
   color:
-    #8d102a;
+    #8c102a;
 
   margin:
 
     10px
     0
     20px;
+
 }
 
 
@@ -504,25 +648,30 @@ main {
   line-height:
     1.72;
 
-  margin: 0;
+  margin:
+    0;
+
 }
 
 
-/* ========================= */
+
+/* =============================== */
 /* ENDING */
-/* ========================= */
+/* =============================== */
 
 .ending {
 
-  text-align: center;
-
-  border-radius:
-    30px;
+  text-align:
+    center;
 
   padding:
 
     50px
     25px;
+
+  border-radius:
+    30px;
+
 }
 
 
@@ -535,6 +684,7 @@ main {
       6vw,
       4rem
     );
+
 }
 
 
@@ -557,6 +707,7 @@ main {
 
     10px
     0;
+
 }
 
 
@@ -564,22 +715,28 @@ main {
 
   color:
     #ffe5e9;
+
 }
 
 
-/* ========================= */
+
+/* =============================== */
 /* ROSE INTRO */
-/* ========================= */
+/* =============================== */
 
 .rose-intro {
 
-  position: fixed;
+  position:
+    fixed;
 
-  inset: 0;
+  inset:
+    0;
 
-  z-index: 999;
+  z-index:
+    999;
 
-  overflow: hidden;
+  overflow:
+    hidden;
 
   background:
 
@@ -598,46 +755,57 @@ main {
 
   transition:
 
-    opacity 1s ease,
-    visibility 1s ease;
+    opacity
+    1s
+    ease,
+
+    visibility
+    1s
+    ease;
+
 }
 
 
 .rose-intro.intro-out {
 
-  opacity: 0;
+  opacity:
+    0;
 
-  visibility: hidden;
+  visibility:
+    hidden;
 
-  pointer-events: none;
+  pointer-events:
+    none;
+
 }
 
 
 #roseCanvas {
 
-  position: absolute;
+  position:
+    absolute;
 
-  inset: 0;
+  inset:
+    0;
 
-  width: 100%;
+  width:
+    100%;
 
-  height: 100%;
+  height:
+    100%;
+
 }
 
 
-/* CODE TEXT */
+
+/* =============================== */
+/* INTRO CODE */
+/* =============================== */
 
 .intro-code {
 
-  position: absolute;
-
-  left:
-
-    clamp(
-      18px,
-      5vw,
-      70px
-    );
+  position:
+    absolute;
 
   top:
 
@@ -647,12 +815,31 @@ main {
       90px
     );
 
-  display: flex;
+  left:
+
+    clamp(
+      18px,
+      5vw,
+      70px
+    );
+
+  display:
+    flex;
 
   flex-direction:
     column;
 
-  gap: 8px;
+  gap:
+    8px;
+
+  color:
+
+    rgba(
+      255,
+      170,
+      190,
+      .34
+    );
 
   font-family:
 
@@ -667,28 +854,27 @@ main {
       1rem
     );
 
-  color:
+  user-select:
+    none;
 
-    rgba(
-      255,
-      170,
-      190,
-      .34
-    );
-
-  user-select: none;
 }
 
 
+
+/* =============================== */
 /* CAPTION */
+/* =============================== */
 
 .intro-caption {
 
-  position: absolute;
+  position:
+    absolute;
 
-  left: 50%;
+  left:
+    50%;
 
-  bottom: 100px;
+  bottom:
+    100px;
 
   transform:
     translateX(-50%);
@@ -700,7 +886,8 @@ main {
       600px
     );
 
-  text-align: center;
+  text-align:
+    center;
 
   letter-spacing:
     .08em;
@@ -714,6 +901,7 @@ main {
     2s
     ease-in-out
     infinite;
+
 }
 
 
@@ -722,26 +910,36 @@ main {
   0%,
   100% {
 
-    opacity: .55;
+    opacity:
+      .55;
+
   }
 
   50% {
 
-    opacity: 1;
+    opacity:
+      1;
+
   }
 
 }
 
 
+
+/* =============================== */
 /* CONTINUE BUTTON */
+/* =============================== */
 
 .continue-btn {
 
-  position: absolute;
+  position:
+    absolute;
 
-  left: 50%;
+  left:
+    50%;
 
-  bottom: 38px;
+  bottom:
+    38px;
 
   transform:
     translateX(-50%);
@@ -749,12 +947,7 @@ main {
   border:
 
     1px solid
-    rgba(
-      255,
-      180,
-      195,
-      .45
-    );
+    rgba(255,180,195,.45);
 
   border-radius:
     999px;
@@ -764,7 +957,8 @@ main {
     15px
     30px;
 
-  color: white;
+  color:
+    white;
 
   background:
 
@@ -781,28 +975,33 @@ main {
     22px
     rgba(255,35,90,.38);
 
-  font-weight: 700;
+  font-weight:
+    700;
 
-  cursor: pointer;
+  cursor:
+    pointer;
 
-  transition:
-    .3s ease;
 }
 
 
 .hidden-intro-btn {
 
-  opacity: 0;
+  opacity:
+    0;
 
-  pointer-events: none;
+  pointer-events:
+    none;
+
 }
 
 
 .show-intro-btn {
 
-  opacity: 1;
+  opacity:
+    1;
 
-  pointer-events: auto;
+  pointer-events:
+    auto;
 
   animation:
 
@@ -810,6 +1009,7 @@ main {
     .7s
     ease
     both;
+
 }
 
 
@@ -817,48 +1017,60 @@ main {
 
   from {
 
-    opacity: 0;
+    opacity:
+      0;
 
     transform:
+
       translate(
         -50%,
         15px
       );
+
   }
 
   to {
 
-    opacity: 1;
+    opacity:
+      1;
 
     transform:
+
       translate(
         -50%,
         0
       );
+
   }
 
 }
 
 
-/* ========================= */
-/* FALLING PETALS */
-/* ========================= */
+
+/* =============================== */
+/* PETALS */
+/* =============================== */
 
 .petal {
 
-  position: fixed;
+  position:
+    fixed;
 
-  top: -45px;
+  top:
+    -45px;
 
-  z-index: 50;
+  z-index:
+    50;
 
-  pointer-events: none;
+  pointer-events:
+    none;
 
   animation:
 
     fall
     linear
     forwards;
+
 }
 
 
@@ -877,14 +1089,16 @@ main {
       rotate(
         720deg
       );
+
   }
 
 }
 
 
-/* ========================= */
+
+/* =============================== */
 /* MOBILE */
-/* ========================= */
+/* =============================== */
 
 @media
 (max-width: 760px) {
@@ -893,6 +1107,7 @@ main {
 
     padding-top:
       20px;
+
   }
 
 
@@ -905,6 +1120,7 @@ main {
 
       42px
       22px;
+
   }
 
 
@@ -913,13 +1129,16 @@ main {
 
     grid-template-columns:
       1fr;
+
   }
 
 
   .memory-card:nth-child(even)
   .photo-wrap {
 
-    order: 0;
+    order:
+      0;
+
   }
 
 
@@ -927,6 +1146,7 @@ main {
 
     min-height:
       470px;
+
   }
 
 
@@ -936,6 +1156,7 @@ main {
 
       38px
       25px;
+
   }
 
 
@@ -943,17 +1164,21 @@ main {
 
     font-size:
       1.15rem;
+
   }
 
 
   .intro-code {
 
-    top: 32px;
+    top:
+      32px;
 
-    left: 18px;
+    left:
+      18px;
 
     font-size:
       .68rem;
+
   }
 
 
@@ -964,6 +1189,7 @@ main {
 
     font-size:
       .78rem;
+
   }
 
 }
