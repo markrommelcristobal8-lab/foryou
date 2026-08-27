@@ -35,16 +35,63 @@ const player =
 // MUSIC
 // =====================================
 
-const VIDEO_ID =
-  "dbVR391HzT8";
+const VIDEO_ID = "dbVR391HzT8";
+
+let musicStarted = false;
 
 
-let musicStarted =
-  false;
+function createMusicPlayer() {
+
+  player.innerHTML = "";
+
+  const iframe =
+    document.createElement("iframe");
+
+  iframe.width = "1";
+  iframe.height = "1";
+
+  iframe.src =
+    `https://www.youtube.com/embed/${VIDEO_ID}` +
+    `?autoplay=1` +
+    `&loop=1` +
+    `&playlist=${VIDEO_ID}` +
+    `&controls=0` +
+    `&playsinline=1` +
+    `&rel=0` +
+    `&enablejsapi=1` +
+    `&origin=${encodeURIComponent(window.location.origin)}`;
+
+  iframe.title =
+    "Background Music";
+
+  iframe.allow =
+    "autoplay; encrypted-media";
+
+  iframe.frameBorder =
+    "0";
+
+  player.appendChild(iframe);
+
+  musicStarted = true;
+}
 
 
+function startMusic(forceRestart = false) {
 
-function startMusic() {
+  /*
+    Kapag na-block ng browser ang unang autoplay,
+    ire-recreate natin ang YouTube player kapag
+    totoong nag-tap ang user.
+  */
+
+  if (forceRestart) {
+
+    musicStarted = false;
+
+    player.innerHTML = "";
+
+  }
+
 
   if (musicStarted) {
 
@@ -53,56 +100,32 @@ function startMusic() {
   }
 
 
-  player.innerHTML = `
-
-    <iframe
-
-      width="1"
-
-      height="1"
-
-      src="https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&loop=1&playlist=${VIDEO_ID}&controls=0&playsinline=1"
-
-      title="Background Music"
-
-      allow="autoplay; encrypted-media"
-
-      frameborder="0">
-
-    </iframe>
-
-  `;
-
-
-  musicStarted =
-    true;
-
+  createMusicPlayer();
 }
 
 
 
-// Try music immediately
-// when page opens.
+// TRY MUSIC WHEN PAGE OPENS
 
 window.addEventListener(
   "load",
   () => {
 
-    startMusic();
+    startMusic(false);
 
   }
 );
 
 
 
-// If browser blocks sound,
-// first click will try again.
+// IF AUTOPLAY IS BLOCKED,
+// FIRST REAL TAP WILL RETRY MUSIC
 
 document.addEventListener(
-  "click",
+  "pointerdown",
   () => {
 
-    startMusic();
+    startMusic(true);
 
   },
   {
@@ -115,11 +138,12 @@ document.addEventListener(
   "touchstart",
   () => {
 
-    startMusic();
+    startMusic(true);
 
   },
   {
-    once: true
+    once: true,
+    passive: true
   }
 );
 
@@ -129,17 +153,13 @@ document.addEventListener(
 // ROSE PARTICLES
 // =====================================
 
-let rw =
-  0;
+let rw = 0;
 
-let rh =
-  0;
+let rh = 0;
 
-let rdpr =
-  1;
+let rdpr = 1;
 
-let particlesRose =
-  [];
+let particlesRose = [];
 
 let roseStart =
   performance.now();
@@ -149,13 +169,9 @@ let roseStart =
 function resizeRoseCanvas() {
 
   rdpr =
-
     Math.min(
-
       window.devicePixelRatio || 1,
-
       2
-
     );
 
 
@@ -184,19 +200,12 @@ function resizeRoseCanvas() {
 
 
   rctx.setTransform(
-
     rdpr,
-
     0,
-
     0,
-
     rdpr,
-
     0,
-
     0
-
   );
 
 }
@@ -212,17 +221,17 @@ window.addEventListener(
 
 
 
+// =====================================
+// ROSE SHAPE
+// =====================================
+
 function rosePoint(t) {
 
-  const k =
-    5;
+  const k = 5;
 
 
   const petal =
-
-    Math.sin(
-      k * t
-    );
+    Math.sin(k * t);
 
 
   const radius =
@@ -245,13 +254,11 @@ function rosePoint(t) {
   return {
 
     x:
-
       Math.cos(t) *
       radius,
 
 
     y:
-
       Math.sin(t) *
       radius *
       0.82
@@ -262,6 +269,10 @@ function rosePoint(t) {
 
 
 
+// =====================================
+// STEM
+// =====================================
+
 function stemPoint(t) {
 
   return {
@@ -270,14 +281,12 @@ function stemPoint(t) {
 
       Math.sin(
         t * 4.2
-      ) *
-      15,
+      ) * 15,
 
 
     y:
 
-      t *
-      220
+      t * 220
 
   };
 
@@ -285,10 +294,13 @@ function stemPoint(t) {
 
 
 
+// =====================================
+// BUILD ROSE PARTICLES
+// =====================================
+
 function buildRoseParticles() {
 
-  particlesRose =
-    [];
+  particlesRose = [];
 
 
   const cx =
@@ -300,7 +312,9 @@ function buildRoseParticles() {
 
 
 
+  // =====================================
   // PETALS
+  // =====================================
 
   for (
     let i = 0;
@@ -311,9 +325,7 @@ function buildRoseParticles() {
     const t =
 
       Math.random() *
-
       Math.PI *
-
       2;
 
 
@@ -322,7 +334,6 @@ function buildRoseParticles() {
 
 
     const spread =
-
       Math.random() *
       22;
 
@@ -330,9 +341,7 @@ function buildRoseParticles() {
     const ang =
 
       Math.random() *
-
       Math.PI *
-
       2;
 
 
@@ -415,7 +424,9 @@ function buildRoseParticles() {
 
 
 
-  // CENTER
+  // =====================================
+  // CENTER SPIRAL
+  // =====================================
 
   for (
     let i = 0;
@@ -513,7 +524,9 @@ function buildRoseParticles() {
 
 
 
-  // STEM
+  // =====================================
+  // STEM PARTICLES
+  // =====================================
 
   for (
     let i = 0;
@@ -595,12 +608,12 @@ function buildRoseParticles() {
 
 
 
+  // =====================================
   // LEAVES
+  // =====================================
 
   for (
-    let side
-    of
-    [-1, 1]
+    let side of [-1, 1]
   ) {
 
     for (
@@ -623,7 +636,8 @@ function buildRoseParticles() {
 
 
       const len =
-        75 * u;
+        75 *
+        u;
 
 
       const baseY =
@@ -632,7 +646,8 @@ function buildRoseParticles() {
 
         225 +
 
-        side * 10;
+        side *
+        10;
 
 
       const tx =
@@ -722,7 +737,6 @@ function buildRoseParticles() {
 }
 
 
-
 buildRoseParticles();
 
 
@@ -740,15 +754,10 @@ function drawRoseIntro(now) {
 
 
   rctx.clearRect(
-
     0,
-
     0,
-
     rw,
-
     rh
-
   );
 
 
@@ -761,26 +770,22 @@ function drawRoseIntro(now) {
 
 
 
-  // ORBIT RINGS
+  // =====================================
+  // GLOWING ORBIT RINGS
+  // =====================================
 
   rctx.save();
 
 
   rctx.translate(
-
     cx,
-
     cy
-
   );
 
 
   rctx.scale(
-
     1,
-
     0.28
-
   );
 
 
@@ -852,7 +857,9 @@ function drawRoseIntro(now) {
 
 
 
+  // =====================================
   // DRAW PARTICLES
+  // =====================================
 
   for (
     const p
@@ -970,7 +977,9 @@ function drawRoseIntro(now) {
 
 
 
+  // =====================================
   // MOVING LIGHT
+  // =====================================
 
   const t =
 
@@ -1080,7 +1089,9 @@ function drawRoseIntro(now) {
 
 
 
+  // =====================================
   // SHOW CONTINUE BUTTON
+  // =====================================
 
   if (
     elapsed >
@@ -1123,7 +1134,6 @@ function drawRoseIntro(now) {
 }
 
 
-
 requestAnimationFrame(
   drawRoseIntro
 );
@@ -1131,7 +1141,7 @@ requestAnimationFrame(
 
 
 // =====================================
-// CONTINUE
+// CONTINUE BUTTON
 // =====================================
 
 continueBtn
@@ -1141,7 +1151,12 @@ continueBtn
 
     () => {
 
-      startMusic();
+      /*
+        Important:
+        retry music during a real click.
+      */
+
+      startMusic(true);
 
 
       roseIntro
@@ -1187,7 +1202,7 @@ continueBtn
 
 
 // =====================================
-// PETAL RAIN
+// FALLING ROSES / FLOWERS
 // =====================================
 
 function rain() {
@@ -1294,7 +1309,7 @@ function rain() {
 
 
 // =====================================
-// OPEN SURPRISE
+// OPEN MY SURPRISE
 // =====================================
 
 btn
@@ -1304,8 +1319,16 @@ btn
 
     () => {
 
-      startMusic();
+      /*
+        Another music retry.
+        This helps if the first attempt
+        was blocked.
+      */
 
+      startMusic(true);
+
+
+      // SHOW PHOTOS ONLY NOW
 
       gift
         .classList
