@@ -1,6 +1,6 @@
-// ===============================
+// =====================================
 // ELEMENTS
-// ===============================
+// =====================================
 
 const roseIntro =
   document.getElementById("roseIntro");
@@ -26,37 +26,63 @@ const gift =
 const petals =
   document.getElementById("petals");
 
-const bgMusic =
-  document.getElementById("bgMusic");
+const player =
+  document.getElementById("player");
 
 
-// ===============================
+
+// =====================================
 // MUSIC
-// ===============================
+// =====================================
 
-bgMusic.volume = 0.65;
+const VIDEO_ID =
+  "dbVR391HzT8";
+
+
+let musicStarted =
+  false;
+
 
 
 function startMusic() {
 
-  if (bgMusic.paused) {
+  if (musicStarted) {
 
-    bgMusic
-      .play()
-      .catch(() => {
-
-        console.log(
-          "Browser blocked autoplay."
-        );
-
-      });
+    return;
 
   }
+
+
+  player.innerHTML = `
+
+    <iframe
+
+      width="1"
+
+      height="1"
+
+      src="https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&loop=1&playlist=${VIDEO_ID}&controls=0&playsinline=1"
+
+      title="Background Music"
+
+      allow="autoplay; encrypted-media"
+
+      frameborder="0">
+
+    </iframe>
+
+  `;
+
+
+  musicStarted =
+    true;
 
 }
 
 
-// Try playing immediately
+
+// Try music immediately
+// when page opens.
 
 window.addEventListener(
   "load",
@@ -68,12 +94,17 @@ window.addEventListener(
 );
 
 
-// First click starts music
-// if autoplay was blocked.
+
+// If browser blocks sound,
+// first click will try again.
 
 document.addEventListener(
   "click",
-  startMusic,
+  () => {
+
+    startMusic();
+
+  },
   {
     once: true
   }
@@ -82,39 +113,55 @@ document.addEventListener(
 
 document.addEventListener(
   "touchstart",
-  startMusic,
+  () => {
+
+    startMusic();
+
+  },
   {
     once: true
   }
 );
 
 
-// ===============================
-// ROSE PARTICLE INTRO
-// ===============================
 
-let rw = 0;
+// =====================================
+// ROSE PARTICLES
+// =====================================
 
-let rh = 0;
+let rw =
+  0;
 
-let rdpr = 1;
+let rh =
+  0;
 
-let particlesRose = [];
+let rdpr =
+  1;
+
+let particlesRose =
+  [];
 
 let roseStart =
   performance.now();
 
 
+
 function resizeRoseCanvas() {
 
   rdpr =
+
     Math.min(
+
       window.devicePixelRatio || 1,
+
       2
+
     );
+
 
   rw =
     window.innerWidth;
+
 
   rh =
     window.innerHeight;
@@ -123,6 +170,7 @@ function resizeRoseCanvas() {
   roseCanvas.width =
     rw * rdpr;
 
+
   roseCanvas.height =
     rh * rdpr;
 
@@ -130,17 +178,25 @@ function resizeRoseCanvas() {
   roseCanvas.style.width =
     rw + "px";
 
+
   roseCanvas.style.height =
     rh + "px";
 
 
   rctx.setTransform(
+
     rdpr,
+
     0,
+
     0,
+
     rdpr,
+
     0,
+
     0
+
   );
 
 }
@@ -155,12 +211,18 @@ window.addEventListener(
 );
 
 
+
 function rosePoint(t) {
 
-  const k = 5;
+  const k =
+    5;
+
 
   const petal =
-    Math.sin(k * t);
+
+    Math.sin(
+      k * t
+    );
 
 
   const radius =
@@ -199,6 +261,7 @@ function rosePoint(t) {
 }
 
 
+
 function stemPoint(t) {
 
   return {
@@ -207,34 +270,37 @@ function stemPoint(t) {
 
       Math.sin(
         t * 4.2
-      ) * 15,
+      ) *
+      15,
 
 
     y:
 
-      t * 220
+      t *
+      220
 
   };
 
 }
 
 
+
 function buildRoseParticles() {
 
-  particlesRose = [];
+  particlesRose =
+    [];
 
 
   const cx =
     rw / 2;
+
 
   const cy =
     rh * 0.43;
 
 
 
-  // ===============================
   // PETALS
-  // ===============================
 
   for (
     let i = 0;
@@ -243,8 +309,11 @@ function buildRoseParticles() {
   ) {
 
     const t =
+
       Math.random() *
+
       Math.PI *
+
       2;
 
 
@@ -253,12 +322,17 @@ function buildRoseParticles() {
 
 
     const spread =
-      Math.random() * 22;
+
+      Math.random() *
+      22;
 
 
     const ang =
+
       Math.random() *
+
       Math.PI *
+
       2;
 
 
@@ -291,7 +365,8 @@ function buildRoseParticles() {
         (
           Math.random() -
           0.5
-        ) * 500,
+        ) *
+        500,
 
 
       y:
@@ -301,12 +376,16 @@ function buildRoseParticles() {
         (
           Math.random() -
           0.5
-        ) * 420,
+        ) *
+        420,
 
 
-      tx,
+      tx:
+        tx,
 
-      ty,
+
+      ty:
+        ty,
 
 
       size:
@@ -336,9 +415,7 @@ function buildRoseParticles() {
 
 
 
-  // ===============================
-  // CENTER SPIRAL
-  // ===============================
+  // CENTER
 
   for (
     let i = 0;
@@ -351,8 +428,11 @@ function buildRoseParticles() {
 
 
     const rad =
+
       4 +
-      i * 0.085;
+
+      i *
+      0.085;
 
 
     const tx =
@@ -381,7 +461,8 @@ function buildRoseParticles() {
         (
           Math.random() -
           0.5
-        ) * 350,
+        ) *
+        350,
 
 
       y:
@@ -391,12 +472,16 @@ function buildRoseParticles() {
         (
           Math.random() -
           0.5
-        ) * 300,
+        ) *
+        300,
 
 
-      tx,
+      tx:
+        tx,
 
-      ty,
+
+      ty:
+        ty,
 
 
       size:
@@ -428,9 +513,7 @@ function buildRoseParticles() {
 
 
 
-  // ===============================
   // STEM
-  // ===============================
 
   for (
     let i = 0;
@@ -455,7 +538,8 @@ function buildRoseParticles() {
         (
           Math.random() -
           0.5
-        ) * 350,
+        ) *
+        350,
 
 
       y:
@@ -465,7 +549,8 @@ function buildRoseParticles() {
         (
           Math.random() -
           0.5
-        ) * 500,
+        ) *
+        500,
 
 
       tx:
@@ -510,9 +595,7 @@ function buildRoseParticles() {
 
 
 
-  // ===============================
   // LEAVES
-  // ===============================
 
   for (
     let side
@@ -535,7 +618,8 @@ function buildRoseParticles() {
         (
           Math.random() -
           0.5
-        ) * 1.2;
+        ) *
+        1.2;
 
 
       const len =
@@ -583,7 +667,8 @@ function buildRoseParticles() {
           (
             Math.random() -
             0.5
-          ) * 350,
+          ) *
+          350,
 
 
         y:
@@ -593,12 +678,16 @@ function buildRoseParticles() {
           (
             Math.random() -
             0.5
-          ) * 500,
+          ) *
+          500,
 
 
-        tx,
+        tx:
+          tx,
 
-        ty,
+
+        ty:
+          ty,
 
 
         size:
@@ -633,25 +722,33 @@ function buildRoseParticles() {
 }
 
 
+
 buildRoseParticles();
 
 
-// ===============================
+
+// =====================================
 // DRAW ROSE
-// ===============================
+// =====================================
 
 function drawRoseIntro(now) {
 
   const elapsed =
+
     now -
     roseStart;
 
 
   rctx.clearRect(
+
     0,
+
     0,
+
     rw,
+
     rh
+
   );
 
 
@@ -664,22 +761,26 @@ function drawRoseIntro(now) {
 
 
 
-  // ===============================
   // ORBIT RINGS
-  // ===============================
 
   rctx.save();
 
 
   rctx.translate(
+
     cx,
+
     cy
+
   );
 
 
   rctx.scale(
+
     1,
+
     0.28
+
   );
 
 
@@ -725,16 +826,19 @@ function drawRoseIntro(now) {
       0,
 
       155 +
-      i * 20,
+      i *
+      20,
 
       155 +
-      i * 20,
+      i *
+      20,
 
       0,
 
       0,
 
-      Math.PI * 2
+      Math.PI *
+      2
 
     );
 
@@ -748,9 +852,7 @@ function drawRoseIntro(now) {
 
 
 
-  // ===============================
-  // PARTICLES
-  // ===============================
+  // DRAW PARTICLES
 
   for (
     const p
@@ -856,7 +958,8 @@ function drawRoseIntro(now) {
 
       0,
 
-      Math.PI * 2
+      Math.PI *
+      2
 
     );
 
@@ -867,9 +970,7 @@ function drawRoseIntro(now) {
 
 
 
-  // ===============================
   // MOVING LIGHT
-  // ===============================
 
   const t =
 
@@ -969,7 +1070,8 @@ function drawRoseIntro(now) {
 
     0,
 
-    Math.PI * 2
+    Math.PI *
+    2
 
   );
 
@@ -978,9 +1080,7 @@ function drawRoseIntro(now) {
 
 
 
-  // ===============================
-  // SHOW CONTINUE
-  // ===============================
+  // SHOW CONTINUE BUTTON
 
   if (
     elapsed >
@@ -1023,14 +1123,16 @@ function drawRoseIntro(now) {
 }
 
 
+
 requestAnimationFrame(
   drawRoseIntro
 );
 
 
-// ===============================
-// CONTINUE BUTTON
-// ===============================
+
+// =====================================
+// CONTINUE
+// =====================================
 
 continueBtn
   .addEventListener(
@@ -1083,9 +1185,10 @@ continueBtn
   );
 
 
-// ===============================
-// FALLING PETALS
-// ===============================
+
+// =====================================
+// PETAL RAIN
+// =====================================
 
 function rain() {
 
@@ -1189,9 +1292,10 @@ function rain() {
 }
 
 
-// ===============================
-// OPEN SURPRISE BUTTON
-// ===============================
+
+// =====================================
+// OPEN SURPRISE
+// =====================================
 
 btn
   .addEventListener(
@@ -1203,7 +1307,6 @@ btn
       startMusic();
 
 
-      // SHOW PHOTOS AND LETTERS
       gift
         .classList
         .remove(
